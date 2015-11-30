@@ -1,0 +1,32 @@
+#!/bin/sh
+
+
+echo "Creating new project..."
+
+echo -n "Project name: "
+read pr_name
+
+if [ -n $pr_name ]; then
+	mkdir code/$pr_name
+	mkdir code/$pr_name/src
+	mkdir code/$pr_name/build
+	touch code/$pr_name/CMakeLists.txt
+	chmod +w code/$pr_name/CMakeLists.txt
+	echo "cmake_minimum_required(VERSION 2.8)\nproject($pr_name)\nset(SOURCE src/main.cpp)\nset(CMAKE_C_FLAGS \"-ggdb\")\nadd_executable($pr_name \${SOURCE})\ninclude_directories(/usr/local/lib)\ntarget_link_libraries($pr_name)" > code/$pr_name/CMakeLists.txt
+	touch code/$pr_name/src/main.cpp #ADD C/CPP SELECTION
+	chmod +w code/$pr_name/src/main.cpp
+	echo "//$pr_name - entry point\n//by Rabbitlancer\n#include <main.h>\n\nint main(int argc, char *argv[]) {\n\n	return 0;\n}" > code/$pr_name/src/main.cpp
+	mkdir code/$pr_name/src/headers
+	touch code/$pr_name/src/headers/main.h
+	echo "//$pr_name - entry point headers\n//by Rabbitlancer\n" > code/$pr_name/src/headers/main.h
+	cd code/$pr_name
+	touch README.md
+	echo "# $pr_name" > README.md
+	git init
+	git add .
+	git add *
+	git commit -m "init commit"
+	git remote add origin https://github.com/Rabbitlancer/$pr_name;
+else
+	echo "Project name not specified!";
+fi
