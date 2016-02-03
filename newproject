@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -eq 1 ] && [ $1 -eq "-install" ]; then
+if [ $# -eq 1 ] && [ "$1" = "-install" ]; then
 	echo "Installing newproject script. Make sure you have root rights"
 	cp ./newproject /usr/bin
 	if [ -e /usr/bin/newproject ]; then
